@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bollywood Movie Predictor</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🎬 Bollywood Movie Predictor</h1>
+
+    <input type="text" id="existingMovieInput" placeholder="Type movie name..." onkeyup="filterMovies()">
+    <ul id="suggestions"></ul>
+    <div id="movieDetails"></div>
+
+</div>
+
+<script>
+const movies = {{ movies_list | tojson | safe }};
+
+function filterMovies() {
+    const input = document.getElementById('existingMovieInput').value.toLowerCase();
+    const suggestions = document.getElementById('suggestions');
+    suggestions.innerHTML = '';
+    if (!input) return;
+
+    const matches = movies.filter(m => m.movie_name.toLowerCase().includes(input)).slice(0,5);
+    matches.forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = m.movie_name;
+        li.onclick = () => showMovieDetails(m);
+        suggestions.appendChild(li);
+    });
+}
+
+function showMovieDetails(movie) {
+    document.getElementById('suggestions').innerHTML = '';
+    document.getElementById('existingMovieInput').value = movie.movie_name;
+
+    function formatCr(value) {
+    if (!value || isNaN(value)) return "-";
+    let cr = value / 10000000; // 1 Cr = 1,00,00,000
+    return cr.toFixed(1) + " Cr"; // 1 decimal place
+}
+
+    // Calculate verdict based on Worldwide/Budget
+    let ratio = movie.Worldwide / movie.Budget;
+    let verdict = '';
+    if (ratio < 1) verdict = 'Flop';
+    else if (ratio < 1.5) verdict = 'Average';
+    else if (ratio < 2) verdict = 'Hit';
+    else if (ratio < 3) verdict = 'Superhit';
+    else verdict = 'Blockbuster';
+
+    document.getElementById('movieDetails').innerHTML = `
+        <p><strong>Name:</strong> ${movie.movie_name}</p>
+        <p><strong>Budget:</strong> ${formatCr(movie.Budget)}</p>
+        <p><strong>Worldwide:</strong> ${formatCr(movie.Worldwide)}</p>
+        <p><strong>India Net:</strong> ${formatCr(movie.India_Net)}</p>
+        <p><strong>India Gross:</strong> ${formatCr(movie.India_Gross)}</p>
+        <p><strong>Overseas:</strong> ${formatCr(movie.Overseas)}</p>
+        <p><strong>Verdict:</strong> ${verdict}</p>
+    `;
+}
+</script>
+</body>
+</html>

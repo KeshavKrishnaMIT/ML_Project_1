@@ -1,0 +1,177 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* Container */
+.container {
+    background: #fff;
+    color: #1d3557;
+    border-radius: 15px;
+    padding: 30px;
+    width: 380px;
+    max-width: 95%;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.35);
+    text-align: center;
+    transform: translateY(-20px);
+    opacity: 0;
+    animation: fadeInUp 0.6s forwards;
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Headings */
+h1 {
+    margin-bottom: 20px;
+    color: #e63946;
+    font-size: 28px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Inputs and Selects */
+input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 15px;
+    background: #fff;
+    color: #1d3557;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+    border: 2px solid #e63946;
+    box-shadow: 0 0 5px rgba(230, 57, 70, 0.4);
+}
+
+/* Buttons */
+button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    background: #e63946;
+    color: #fff;
+}
+
+button:hover {
+    background: #d62839;
+    transform: scale(1.05);
+}
+
+button:focus-visible {
+    outline: 3px solid #f77f00;
+    outline-offset: 2px;
+}
+
+/* Button group for New / Existing */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.button-group button {
+    flex: 1;
+}
+
+/* Result Text */
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #1d3557;
+}
+
+/* Existing Movie Suggestions */
+#suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 15px 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    color: #1d3557;
+    transition: border 0.3s;
+}
+
+#suggestions li {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+#suggestions li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styled Scrollbar */
+#suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+#suggestions::-webkit-scrollbar-thumb {
+    background-color: #e63946;
+    border-radius: 3px;
+}
+
+/* Movie Details */
+#movieDetails {
+    text-align: left;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    color: #1d3557;
+    transition: background 0.3s, border 0.3s;
+}
+
+#movieDetails p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    input, select, button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+
